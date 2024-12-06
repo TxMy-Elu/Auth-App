@@ -21,11 +21,13 @@ CREATE TABLE log(
 
 ALTER TABLE log ADD FOREIGN KEY (idUtilisateur) REFERENCES utilisateur(idUtilisateur);
 
-CREATE TABLE reactivation(
-    idReactivation INT AUTO_INCREMENT NOT NULL,
-    codeReactivation VARCHAR(32) NOT NULL,
-    dateHeureExpirationReactivation DATETIME NOT NULL DEFAULT (NOW() + INTERVAL 1 DAY),
-    idUtilisateur INT NOT NULL,
-    PRIMARY KEY(idReactivation),
-    FOREIGN KEY (idUtilisateur) REFERENCES utilisateur(idUtilisateur)
-)ENGINE=InnoDB;
+CREATE TABLE `reactivation` (
+  `idReactivation` int(11) NOT NULL,
+  `codeReactivation` varchar(32) NOT NULL,
+  `idUtilisateur` int(11) NOT NULL,
+  `dateHeureExpirationReactivation` datetime DEFAULT (current_timestamp() + interval 1 day)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+ALTER TABLE `reactivation`
+  ADD PRIMARY KEY (`idReactivation`),
+  ADD KEY `idUtilisateur` (`idUtilisateur`);
