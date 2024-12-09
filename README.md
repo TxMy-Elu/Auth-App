@@ -1,109 +1,66 @@
-# Auth-App
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-## Description
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-Auth-App est une application web conçue pour gérer l'authentification des utilisateurs et la sécurité des comptes. Elle inclut des fonctionnalités telles que l'enregistrement des utilisateurs, la connexion, l'authentification à deux facteurs (2FA) et la réactivation des comptes.
+## About Laravel
 
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-## Schéma de la Base de Données
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-Le schéma de la base de données inclut les tables suivantes :
+## Learning Laravel
 
-- `utilisateur`: Stocke les informations des utilisateurs.
-- `log`: Enregistre les actions des utilisateurs et les journaux.
-- `reactivation`: Gère les liens de réactivation des comptes.
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-## Fonctionnalités Clés
+You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-1. **Enregistrement et Connexion des Utilisateurs**: Permet aux utilisateurs de s'enregistrer et de se connecter à l'application.
-2. **Authentification à Deux Facteurs (2FA)**: Améliore la sécurité en nécessitant une deuxième forme d'authentification.
-3. **Réactivation des Comptes**: Fournit la fonctionnalité de gérer les comptes désactivés et d'envoyer des liens de réactivation.
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Exemple de Schéma SQL
+## Laravel Sponsors
 
-```sql
-CREATE TABLE utilisateur(
-    idUtilisateur INT AUTO_INCREMENT NOT NULL,
-    emailUtilisateur VARCHAR(500) NOT NULL UNIQUE,
-    motDePasseUtilisateur VARCHAR(500) NOT NULL,
-    nomUtilisateur VARCHAR(500) NOT NULL,
-    prenomUtilisateur VARCHAR(500) NOT NULL,
-    secretA2FUtilisateur VARCHAR(500) NULL,
-    tentativesEchoueesUtilisateur INT NOT NULL DEFAULT 0,
-    estDesactiveUtilisateur INT NOT NULL DEFAULT 0,
-    PRIMARY KEY(idUtilisateur)
-) ENGINE=InnoDB;
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-CREATE TABLE log(
-    idLog INT AUTO_INCREMENT NOT NULL,
-    typeActionLog VARCHAR(500) NOT NULL,
-    dateHeureLog DATETIME NOT NULL DEFAULT NOW(),
-    adresseIPLog VARCHAR(15) NOT NULL,
-    idUtilisateur INT NOT NULL,
-    PRIMARY KEY(idLog)
-) ENGINE=InnoDB;
+### Premium Partners
 
-ALTER TABLE log ADD FOREIGN KEY (idUtilisateur) REFERENCES utilisateur(idUtilisateur);
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[WebReinvent](https://webreinvent.com/)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
+- **[Jump24](https://jump24.co.uk)**
+- **[Redberry](https://redberry.international/laravel/)**
+- **[Active Logic](https://activelogic.com)**
+- **[byte5](https://byte5.de)**
+- **[OP.GG](https://op.gg)**
 
-CREATE TABLE reactivation (
-  idReactivation INT(11) NOT NULL,
-  codeReactivation VARCHAR(32) NOT NULL,
-  idUtilisateur INT(11) NOT NULL,
-  dateHeureExpirationReactivation DATETIME DEFAULT (current_timestamp() + interval 1 day)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+## Contributing
 
-ALTER TABLE reactivation
-  ADD PRIMARY KEY (idReactivation),
-  ADD KEY idUtilisateur (idUtilisateur);
-```
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Questions
+## Code of Conduct
 
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-### 1. Rappelez en quoi consiste une attaque par force brute.
+## Security Vulnerabilities
 
-Une attaque par force brute consiste à essayer toutes les combinaisons possibles de mots de passe ou de clés de chiffrement jusqu'à trouver la bonne. Cette méthode est souvent utilisée pour craquer des mots de passe en essayant systématiquement toutes les combinaisons possibles de caractères jusqu'à ce que le bon mot de passe soit trouvé. Les attaques par force brute peuvent être très efficaces contre des mots de passe courts ou simples, mais elles peuvent être contrées par des mesures de sécurité telles que la limitation du nombre de tentatives de connexion et l'utilisation de mots de passe complexes.
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
+## License
 
-### 2. Proposer une modification de la base de données existante afin de permettre la gestion des comptes désactivés et des liens de réactivation des comptes.
-
-```sql
-CREATE TABLE `reactivation` (
-`idReactivation` int(11) NOT NULL,
-`codeReactivation` varchar(32) NOT NULL,
-`idUtilisateur` int(11) NOT NULL,
-`dateHeureExpirationReactivation` datetime DEFAULT (current_timestamp() + interval 1 day)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
-
-ALTER TABLE `reactivation`
-ADD PRIMARY KEY (`idReactivation`),
-ADD KEY `idUtilisateur` (`idUtilisateur`);
-```
-
-### 3. Qu'est-ce qu'un cookie et à quoi sert-il dans le cas d'une connexion pour un utilisateur ?
-
-Un cookie est un petit fichier texte stocké par le navigateur web sur l'ordinateur de l'utilisateur. Il
-contient des informations envoyées par le serveur web et peut être utilisé pour diverses raisons,
-telles que la gestion des sessions utilisateur, le suivi des préférences, et la personnalisation du
-contenu. Dans le cas d'une connexion utilisateur, un cookie peut être utilisé pour stocker un jeton
-d'authentification (comme un JWT) qui permet au serveur de reconnaître l'utilisateur lors de ses
-futures requêtes sans avoir à se reconnecter
-
-
-
-## Installation
-
-1. Clonez le dépôt.
-2. Installez les dépendances en utilisant Composer et npm.
-3. Configurez la base de données en utilisant le schéma SQL fourni.
-4. Configurez les paramètres de l'application.
-
-## Utilisation
-
-1. Enregistrez un nouveau compte utilisateur.
-2. Connectez-vous avec le compte enregistré.
-3. Activez l'authentification à deux facteurs pour une sécurité accrue.
-4. Gérez la réactivation des comptes via les liens fournis.
-
-Ce projet vise à fournir un système d'authentification sécurisé et efficace pour les applications web.
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
