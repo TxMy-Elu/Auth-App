@@ -22,6 +22,17 @@ CREATE TABLE log (
                      FOREIGN KEY (idUtilisateur) REFERENCES utilisateur(idUtilisateur)
 ) ENGINE=InnoDB;
 
+-- Création de la table reactivation
+ALTER TABLE log ADD FOREIGN KEY (idUtilisateur) REFERENCES utilisateur(idUtilisateur);
+CREATE TABLE reactivation(
+                             idReactivation INT AUTO_INCREMENT NOT NULL,
+                             codeReactivation VARCHAR(32) NOT NULL,
+                             dateHeureExpirationReactivation DATETIME NOT NULL DEFAULT (NOW() + INTERVAL 1 DAY),
+                             idUtilisateur INT NOT NULL,
+                             PRIMARY KEY(idReactivation),
+                             FOREIGN KEY (idUtilisateur) REFERENCES utilisateur(idUtilisateur)
+)ENGINE=InnoDB;
+
 -- Création de la table reset_password
 CREATE TABLE reset_password (
                                 idResetPassword INT AUTO_INCREMENT NOT NULL,
